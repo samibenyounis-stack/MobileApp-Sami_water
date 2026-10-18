@@ -46,4 +46,6 @@ The storefront defaults to French and supports Arabic with right-to-left layout.
 
 Fourat 2 L is 0.800 TND per bottle. Marwa is 0.850 TND per bottle; its capacity has not yet been confirmed. Safia pricing is unchanged.
 
-Product photos supplied by the owner are stored at `public/images/safia.jpeg`, `public/images/fourat.jpeg`, and `public/images/marwa.jpeg`. Both Safia options share the same supplied photo. The API serves these exact files. Safia capacity is omitted from the catalog pending confirmation: the newly supplied photo shows a 900 ml glass bottle, while the earlier photo showed 1.5 L plastic bottles. Prices remain unchanged.
+Product photos supplied by the owner are stored at `public/images/safia.jpeg`, `public/images/fourat.jpeg`, and `public/images/marwa.jpeg`. The Safia single uses `safia.jpeg`; the six-pack uses the newly uploaded `safia1.jpg`. The API serves these exact files. Safia capacity is omitted from the catalog pending confirmation: the newly supplied photo shows a 900 ml glass bottle, while the earlier photo showed 1.5 L plastic bottles. Prices remain unchanged.
+
+Product photos display without cropping and open in a full-size dialog on tap or keyboard activation. The viewer supports a close button, Escape, and backdrop dismissal. The Arabic logo combines a warehouse roof and water drop with the business name.

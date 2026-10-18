@@ -11,3 +11,39 @@
 .brand{white-space:normal;line-height:1.4;max-width:260px}.hero-wordmark>span{display:block;line-height:1.4;overflow-wrap:anywhere}.hero-wordmark{direction:inherit!important}html[dir=rtl] .hero-wordmark>span{letter-spacing:0}@media(max-width:760px){.brand{font-size:18px;max-width:170px}.hero-wordmark>span{font-size:27px}}
 
 .brand,.hero-wordmark>span{font-family:Tahoma,Arial,sans-serif;letter-spacing:0}
+
+/* Arabic identity: warehouse roof, water drop, and a readable two-line wordmark. */
+.brand{display:flex;align-items:center;gap:11px;max-width:none;flex-shrink:0;text-decoration:none}
+.logo-symbol{display:block;width:52px;height:52px;flex-shrink:0}
+.logo-type{display:flex;flex-direction:column;align-items:flex-start;gap:1px;font-family:Tahoma,Arial,sans-serif;line-height:1.5;white-space:nowrap;letter-spacing:0}
+.logo-type strong{font-size:21px;font-weight:700;color:#123f49}
+.logo-type small{font-size:12px;font-weight:400;color:#52817d}
+.hero-wordmark{width:100%;padding:25px 10px}
+.hero-logo{display:flex;flex-direction:column;align-items:center;gap:17px}
+.hero-logo .logo-symbol{width:110px;height:110px;filter:drop-shadow(0 12px 16px #153e4018)}
+.hero-logo .logo-type{align-items:center}
+.hero-logo .logo-type strong{font-size:32px}
+.hero-logo .logo-type small{font-size:18px}
+.hero-wordmark p{margin:24px 0 10px}
+.hero-message .orbit{width:340px;height:340px;background:#dfece7}
+
+/* Explicit bounds prevent intrinsic image dimensions from overflowing grid rows. */
+.product-art{display:block;position:relative;width:100%;height:360px;background:#fff;overflow:hidden;border:1px solid #e1e8e2;border-radius:16px}
+.photo-button{position:absolute;inset:0;width:100%;height:100%;display:block;border:0;padding:15px;background:#fff;cursor:zoom-in;overflow:hidden;border-radius:inherit}
+.product-photo{display:block;position:static;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;object-fit:contain;object-position:center;background:white}
+.photo-button:focus-visible{outline-offset:-5px}
+.product-art .tag{pointer-events:none;top:12px;background:#eef5f0ee;color:#173e40;font-size:9px}
+.photo-hint{position:absolute;inset-inline-end:12px;bottom:12px;background:#123f49;color:white;padding:8px 12px;border-radius:20px;font-size:11px;box-shadow:0 3px 12px #123f4920}
+.photo-placeholder{height:100%;display:grid;place-items:center}
+.photo-dialog{width:min(860px,95vw);padding:20px;overflow:auto;background:#fff}
+.photo-dialog .dialog-header{margin-bottom:12px;gap:12px}
+.photo-dialog h2{font-size:20px}
+.full-photo-frame{width:100%;height:min(72dvh,760px);display:flex;justify-content:center;align-items:center;min-height:0}
+#full-photo{display:block;width:100%;height:100%;object-fit:contain;object-position:center;min-height:0;min-width:0}
+#close-photo{border-radius:50%;background:#edf3ef;flex-shrink:0;width:42px;height:42px}
+@media(max-width:760px){
+ header{gap:12px;padding:16px 5%;min-height:100px}.brand{gap:8px}.brand .logo-symbol{width:42px;height:42px}.logo-type strong{font-size:18px}.logo-type small{font-size:11px}
+ .hero-logo .logo-symbol{width:80px;height:80px}.hero-logo .logo-type strong{font-size:26px}.hero-logo .logo-type small{font-size:16px}
+ .hero-message{min-height:305px}.hero-message .orbit{width:285px;height:285px}.hero-wordmark p{margin-top:18px}
+ .product-art{height:350px}.photo-button{padding:14px}.photo-dialog{padding:15px}.full-photo-frame{height:68dvh}footer .logo-type strong{font-size:17px}
+}

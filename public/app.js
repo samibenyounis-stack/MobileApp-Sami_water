@@ -9,6 +9,7 @@ let catalog = [], cart = {}, fees = {deliveryFee:2500,freeDeliveryThreshold:2500
 let lastOrder = null, errorKey = null, loading = true, loadFailed = false;
 try { const saved = JSON.parse(localStorage.getItem('sami-cart') || '{}'); if (saved && typeof saved === 'object' && !Array.isArray(saved)) cart = saved; } catch {}
 const dialog = $('#cart-dialog');
+const photoDialog = $('#photo-dialog');
 function save() { try { localStorage.setItem('sami-cart',JSON.stringify(cart)); } catch {} renderCart(); }
 function renderProducts() {
   if (loading) { $('#products').textContent = t('loading'); return; }
@@ -24,21 +25,36 @@ function renderProducts() {
     const placeholder = card.querySelector('.photo-placeholder'); placeholder.textContent = t('photoPending');
     if (p.image) {
       const image = document.createElement('img'); image.className = 'product-photo'; image.alt = p.name; image.loading = 'lazy'; image.src = p.image;
-      image.onerror = () => { image.remove(); placeholder.hidden = false; };
-      placeholder.hidden = true; card.querySelector('.product-art').append(image);
+      const photoButton = document.createElement('button'); photoButton.type = 'button'; photoButton.className = 'photo-button';
+      photoButton.setAttribute('aria-label',t('openPhoto') + ' ' + p.name);
+      const hint = document.createElement('span'); hint.className = 'photo-hint'; hint.textContent = t('viewPhoto');
+      photoButton.append(image,hint); photoButton.onclick = () => openPhoto(p);
+      image.onerror = () => { photoButton.remove(); placeholder.hidden = false; };
+      placeholder.hidden = true; card.querySelector('.product-art').append(photoButton);
     }
     card.querySelector('h3').textContent = p.name;
     card.querySelector('.price').textContent = money(p.price);
     card.querySelector('.product-size').textContent = p.size;
     card.querySelector('.product-description').textContent = p.description;
-    card.querySelector('button span').textContent = t('add');
-    card.querySelector('button').addEventListener('click', () => {
+    card.querySelector('.add-button span').textContent = t('add');
+    card.querySelector('.add-button').addEventListener('click', () => {
       if ((cart[p.id] || 0) >= 20) return toast(t('limit'));
       cart[p.id] = (cart[p.id] || 0) + 1; save(); toast(t('added'));
     });
     return card;
   }));
 }
+function openPhoto(p) {
+  $('#photo-title').textContent = p.name;
+  $('#full-photo').src = p.image; $('#full-photo').alt = p.name;
+  photoDialog.showModal();
+}
+$('#close-photo').onclick = () => photoDialog.close();
+photoDialog.addEventListener('click', e => {
+  if (e.target !== photoDialog) return;
+  const r = photoDialog.getBoundingClientRect();
+  if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) photoDialog.close();
+});
 let timer;
 function toast(message) { $('#toast').textContent = message; $('#toast').classList.add('show'); clearTimeout(timer); timer = setTimeout(() => $('#toast').classList.remove('show'),2200); }
 function totalRow(label, value) {
@@ -80,9 +96,8 @@ function applyLanguage() {
   document.documentElement.lang = language; document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   document.title = t('pageTitle'); $('#language').value = language;
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll('.brand').forEach(el => { el.textContent = 'مستودع ليلى للمياه'; });
-  $('.hero-wordmark>span').textContent = 'مستودع ليلى للمياه';
   $('#close-cart').setAttribute('aria-label',t('close'));
+  $('#close-photo').setAttribute('aria-label',t('closePhoto'));
   $('#toast').classList.remove('show'); $('#order-error').textContent = errorKey ? t(errorKey) : '';
   renderProducts(); renderCart(); renderReceipt();
 }

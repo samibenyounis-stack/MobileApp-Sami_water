@@ -21,7 +21,7 @@ test('Fourat and Marwa prices are saved using server prices',async t=>{const {se
 test('every product exposes its uploaded photo as a valid JPEG',async t=>{
  const {server,url}=await start();t.after(()=>server.close());
  const {products}=await (await fetch(url+'/api/products')).json();
- assert.deepEqual([...new Set(products.map(p=>p.image))].sort(),['/images/fourat.jpeg','/images/marwa.jpeg','/images/safia.jpeg']);
+ assert.deepEqual([...new Set(products.map(p=>p.image))].sort(),['/images/fourat.jpeg','/images/marwa.jpeg','/images/safia.jpeg','/images/safia1.jpg']);
  for(const path of new Set(products.map(p=>p.image))){
   const response=await fetch(url+path);assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'image/jpeg');
   const bytes=new Uint8Array(await response.arrayBuffer());assert.equal(bytes[0],0xff);assert.equal(bytes[1],0xd8);assert.ok(bytes.length>1000);
