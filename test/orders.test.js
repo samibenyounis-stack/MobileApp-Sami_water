@@ -17,3 +17,13 @@ test('invalid orders are rejected',async t=>{const {server,url}=await start();t.
 test('Safia single and six-pack pricing uses TND millimes',async t=>{const {server,url}=await start();t.after(()=>server.close());const data=await (await fetch(url+'/api/products')).json();assert.equal(data.currency,'TND');assert.equal(data.minorUnit,1000);assert.equal(data.products.find(p=>p.id==='safia-single').price,900);assert.equal(data.products.find(p=>p.id==='safia-six').price,4500);const body=valid();body.items=[{id:'safia-six',quantity:1}];const response=await post(url,body);assert.equal(response.status,201);const {order}=await response.json();assert.equal(order.subtotal,4500);assert.equal(order.currency,'TND');assert.equal(order.items[0].unitPrice/6,750);});
 
 test('Fourat and Marwa prices are saved using server prices',async t=>{const {server,url}=await start();t.after(()=>server.close());for(const [id,price] of [['fourat-single',800],['marwa-single',850]]){const body=valid();body.items=[{id,quantity:1,price:1}];const response=await post(url,body);assert.equal(response.status,201);const {order}=await response.json();assert.equal(order.subtotal,price);assert.equal(order.currency,'TND');}});
+
+test('every product exposes its uploaded photo as a valid JPEG',async t=>{
+ const {server,url}=await start();t.after(()=>server.close());
+ const {products}=await (await fetch(url+'/api/products')).json();
+ assert.deepEqual([...new Set(products.map(p=>p.image))].sort(),['/images/fourat.jpeg','/images/marwa.jpeg','/images/safia.jpeg']);
+ for(const path of new Set(products.map(p=>p.image))){
+  const response=await fetch(url+path);assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'image/jpeg');
+  const bytes=new Uint8Array(await response.arrayBuffer());assert.equal(bytes[0],0xff);assert.equal(bytes[1],0xd8);assert.ok(bytes.length>1000);
+ }
+});

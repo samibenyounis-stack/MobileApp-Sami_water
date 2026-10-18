@@ -7,10 +7,10 @@ import { dirname, resolve } from 'node:path';
 
 // All monetary amounts are integer millimes (1 TND = 1,000 millimes).
 export const products = [
-  {id:'safia-single',name:'Safia · Une bouteille',size:'1 × 1.5 L',price:900,photo:'safia.jpg'},
-  {id:'safia-six',name:'Safia · Pack de 6',size:'6 × 1.5 L',price:4500,photo:'safia.jpg'},
-  {id:'fourat-single',name:'Fourat · Une bouteille',size:'1 × 2 L',price:800,photo:'fourat.jpg'},
-  {id:'marwa-single',name:'Marwa · Une bouteille',size:'1 bouteille',price:850,photo:'marwa.jpg'}
+  {id:'safia-single',name:'Safia · Une bouteille',size:'1 bouteille',price:900,photo:'safia.jpeg'},
+  {id:'safia-six',name:'Safia · Pack de 6',size:'6 bouteilles',price:4500,photo:'safia.jpeg'},
+  {id:'fourat-single',name:'Fourat · Une bouteille',size:'1 × 2 L',price:800,photo:'fourat.jpeg'},
+  {id:'marwa-single',name:'Marwa · Une bouteille',size:'1 bouteille',price:850,photo:'marwa.jpeg'}
 ];
 const pricing = {currency:'TND',minorUnit:1000,deliveryFee:2500,freeDeliveryThreshold:25000};
 export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite') {
@@ -44,7 +44,7 @@ export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite'
       }
       if(req.method!=='GET' && req.method!=='HEAD') return send(405,{error:'Method not allowed.'});
       const files={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/i18n.js':['i18n.js','text/javascript'],'/styles.css':['styles.css','text/css']};
-      for(const photo of ['safia.jpg','fourat.jpg','marwa.jpg']) { if(existsSync(new URL('./public/images/'+photo,import.meta.url))) files['/images/'+photo]=['images/'+photo,'image/jpeg']; }
+      for(const photo of ['safia.jpeg','fourat.jpeg','marwa.jpeg']) { if(existsSync(new URL('./public/images/'+photo,import.meta.url))) files['/images/'+photo]=['images/'+photo,'image/jpeg']; }
       if(!files[path]) return send(404,{error:'Not found.'});
       const [file,type]=files[path];res.writeHead(200,{'Content-Type':type,'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./public/'+file,import.meta.url)));
     } catch(error){console.error(error.message);if(!res.headersSent) send(500,{error:'We could not save your order. Please try again.'});else res.end();}

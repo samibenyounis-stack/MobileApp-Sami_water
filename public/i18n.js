@@ -7,8 +7,8 @@ export const translations = {
   }
 };
 export const productText = {
- 'safia-single':{fr:{name:'Safia · Une bouteille',size:'1 × 1,5 L',description:'0,900 TND la bouteille.',tag:'À L’UNITÉ'},ar:{name:'صافية · قارورة واحدة',size:'1 × 1.5 لتر',description:'0.900 دينار للقارورة.',tag:'بالقارورة'}},
- 'safia-six':{fr:{name:'Safia · Pack de 6',size:'6 × 1,5 L',description:'0,750 TND par bouteille · Économisez 0,900 TND par pack.',tag:'PACK ÉCONOMIQUE'},ar:{name:'صافية · حزمة 6 قوارير',size:'6 × 1.5 لتر',description:'0.750 دينار للقارورة · وفّر 0.900 دينار لكل حزمة.',tag:'حزمة اقتصادية'}},
+ 'safia-single':{fr:{name:'Safia · Une bouteille',size:'1 bouteille',description:'0,900 TND la bouteille.',tag:'À L’UNITÉ'},ar:{name:'صافية · قارورة واحدة',size:'قارورة واحدة',description:'0.900 دينار للقارورة.',tag:'بالقارورة'}},
+ 'safia-six':{fr:{name:'Safia · Pack de 6',size:'6 bouteilles',description:'0,750 TND par bouteille · Économisez 0,900 TND par pack.',tag:'PACK ÉCONOMIQUE'},ar:{name:'صافية · حزمة 6 قوارير',size:'6 قوارير',description:'0.750 دينار للقارورة · وفّر 0.900 دينار لكل حزمة.',tag:'حزمة اقتصادية'}},
  'fourat-single':{fr:{name:'Fourat · Une bouteille',size:'1 × 2 L',description:'0,800 TND la bouteille.',tag:'À L’UNITÉ'},ar:{name:'فرات · قارورة واحدة',size:'1 × 2 لتر',description:'0.800 دينار للقارورة.',tag:'بالقارورة'}},
  'marwa-single':{fr:{name:'Marwa · Une bouteille',size:'1 bouteille',description:'0,850 TND la bouteille.',tag:'À L’UNITÉ'},ar:{name:'مروى · قارورة واحدة',size:'قارورة واحدة',description:'0.850 دينار للقارورة.',tag:'بالقارورة'}}
 };
