@@ -50,4 +50,4 @@ export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite'
     } catch(error){console.error(error.message);if(!res.headersSent) send(500,{error:'We could not save your order. Please try again.'});else res.end();}
   }).on('close',()=>db.close());
 }
-if(process.argv[1]===fileURLToPath(import.meta.url)) createApp().listen(Number(process.env.PORT)||3000,'0.0.0.0',()=>console.log('Dépôt d’eau Laila listening on port '+(process.env.PORT||3000)));
+if(process.argv[1]===fileURLToPath(import.meta.url)) createApp().listen(Number(process.env.PORT)||3000,'0.0.0.0',()=>console.log('مستودع ليلى للمياه listening on port '+(process.env.PORT||3000)));

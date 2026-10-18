@@ -1,4 +1,4 @@
-# Dépôt d’eau Laila · مستودع ليلى للمياه
+# مستودع ليلى للمياه
 
 A mobile-friendly bottled water ordering application with a Node.js API and persistent SQLite orders. Uses Node.js 24 or newer, with no runtime package dependencies.
 
@@ -22,7 +22,7 @@ The server listens on port 3000 (override with `PORT`). SQLite data is stored in
 - SQLite order persistence, UUID order references, and an order receipt.
 - Automated API and database integration tests.
 
-Products and pricing are configured in `server.js`. This initial catalog and the Dépôt d’eau Laila branding are provisional. No product sourcing or water-quality claims are made.
+Products and pricing are configured in `server.js`. This initial catalog and the مستودع ليلى للمياه branding are provisional. No product sourcing or water-quality claims are made.
 
 ## Before accepting real customers
 

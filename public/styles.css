@@ -9,3 +9,5 @@
 .brand{font-size:24px;letter-spacing:-.8px}.hero-wordmark>span{font-size:38px}.hero-wordmark{max-width:100%}@media(max-width:760px){header{height:auto;min-height:90px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}.brand{font-size:21px}.header-actions{margin-inline-start:auto}.hero-wordmark>span{font-size:30px}}
 
 .brand{white-space:normal;line-height:1.4;max-width:260px}.hero-wordmark>span{display:block;line-height:1.4;overflow-wrap:anywhere}.hero-wordmark{direction:inherit!important}html[dir=rtl] .hero-wordmark>span{letter-spacing:0}@media(max-width:760px){.brand{font-size:18px;max-width:170px}.hero-wordmark>span{font-size:27px}}
+
+.brand,.hero-wordmark>span{font-family:Tahoma,Arial,sans-serif;letter-spacing:0}
