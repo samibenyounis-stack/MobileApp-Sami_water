@@ -43,7 +43,7 @@ export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite'
         return send(201,{order});
       }
       if(req.method!=='GET' && req.method!=='HEAD') return send(405,{error:'Method not allowed.'});
-      const files={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/i18n.js':['i18n.js','text/javascript'],'/styles.css':['styles.css','text/css']};
+      const files={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/i18n.js':['i18n.js','text/javascript'],'/styles.css':['styles.css','text/css'],'/fonts/NotoKufiArabic.ttf':['fonts/NotoKufiArabic.ttf','font/ttf']};
       for(const photo of ['safia.jpeg','safia1.jpg','fourat.jpeg','marwa.jpeg']) { if(existsSync(new URL('./public/images/'+photo,import.meta.url))) files['/images/'+photo]=['images/'+photo,'image/jpeg']; }
       if(!files[path]) return send(404,{error:'Not found.'});
       const [file,type]=files[path];res.writeHead(200,{'Content-Type':type,'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./public/'+file,import.meta.url)));
