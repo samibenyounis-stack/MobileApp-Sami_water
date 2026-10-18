@@ -80,7 +80,8 @@ function applyLanguage() {
   document.documentElement.lang = language; document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
   document.title = t('pageTitle'); $('#language').value = language;
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll('.brand').forEach(el => { el.textContent = language === 'ar' ? 'مستودع المياه' : 'Water Warehouse'; });
+  document.querySelectorAll('.brand').forEach(el => { el.textContent = language === 'ar' ? 'مستودع ليلى للمياه' : 'Dépôt d’eau Laila'; });
+  $('.hero-wordmark>span').textContent = language === 'ar' ? 'مستودع ليلى للمياه' : 'Dépôt d’eau Laila';
   $('#close-cart').setAttribute('aria-label',t('close'));
   $('#toast').classList.remove('show'); $('#order-error').textContent = errorKey ? t(errorKey) : '';
   renderProducts(); renderCart(); renderReceipt();
