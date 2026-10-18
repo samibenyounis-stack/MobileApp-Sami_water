@@ -1,14 +1,16 @@
 import http from 'node:http';
 import { DatabaseSync } from 'node:sqlite';
 import { randomUUID } from 'node:crypto';
-import { readFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 // All monetary amounts are integer millimes (1 TND = 1,000 millimes).
 export const products = [
-  {id:'safia-single',name:'Safia · Single bottle',size:'1 × 1.5 L',description:'One bottle at 0.900 TND.',price:900,tag:'SINGLE BOTTLE'},
-  {id:'safia-six',name:'Safia · Pack of six',size:'6 × 1.5 L',description:'0.750 TND per bottle · Save 0.900 TND per pack.',price:4500,tag:'PACK SAVINGS'}
+  {id:'safia-single',name:'Safia · Une bouteille',size:'1 × 1.5 L',price:900,photo:'safia.jpg'},
+  {id:'safia-six',name:'Safia · Pack de 6',size:'6 × 1.5 L',price:4500,photo:'safia.jpg'},
+  {id:'fourat-single',name:'Fourat · Une bouteille',size:'1 × 2 L',price:800,photo:'fourat.jpg'},
+  {id:'marwa-single',name:'Marwa · Une bouteille',size:'1 bouteille',price:850,photo:'marwa.jpg'}
 ];
 const pricing = {currency:'TND',minorUnit:1000,deliveryFee:2500,freeDeliveryThreshold:25000};
 export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite') {
@@ -19,7 +21,7 @@ export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite'
     const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
     try {
       const path = new URL(req.url,'http://localhost').pathname;
-      if(req.method==='GET' && path==='/api/products') return send(200,{products,...pricing});
+      if(req.method==='GET' && path==='/api/products') return send(200,{products:products.map(({photo,...p})=>({...p,image:existsSync(new URL('./public/images/'+photo,import.meta.url))?'/images/'+photo:null})),...pricing});
       if(req.method==='GET' && path==='/api/health') return send(200,{status:'ok'});
       if(req.method==='POST' && path==='/api/orders') {
         if(!req.headers['content-type']?.startsWith('application/json')) return send(415,{error:'Send JSON to place an order.'});
@@ -41,10 +43,11 @@ export function createApp(dbPath = process.env.DB_PATH || './data/orders.sqlite'
         return send(201,{order});
       }
       if(req.method!=='GET' && req.method!=='HEAD') return send(405,{error:'Method not allowed.'});
-      const files={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/styles.css':['styles.css','text/css']};
+      const files={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/i18n.js':['i18n.js','text/javascript'],'/styles.css':['styles.css','text/css']};
+      for(const photo of ['safia.jpg','fourat.jpg','marwa.jpg']) { if(existsSync(new URL('./public/images/'+photo,import.meta.url))) files['/images/'+photo]=['images/'+photo,'image/jpeg']; }
       if(!files[path]) return send(404,{error:'Not found.'});
       const [file,type]=files[path];res.writeHead(200,{'Content-Type':type,'X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin','Content-Security-Policy':"default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'none'; frame-ancestors 'none'; form-action 'self'"});res.end(req.method==='HEAD'?undefined:readFileSync(new URL('./public/'+file,import.meta.url)));
     } catch(error){console.error(error.message);if(!res.headersSent) send(500,{error:'We could not save your order. Please try again.'});else res.end();}
   }).on('close',()=>db.close());
 }
-if(process.argv[1]===fileURLToPath(import.meta.url)) createApp().listen(Number(process.env.PORT)||3000,'0.0.0.0',()=>console.log('Sami Water listening on port '+(process.env.PORT||3000)));
+if(process.argv[1]===fileURLToPath(import.meta.url)) createApp().listen(Number(process.env.PORT)||3000,'0.0.0.0',()=>console.log('Water Warehouse listening on port '+(process.env.PORT||3000)));

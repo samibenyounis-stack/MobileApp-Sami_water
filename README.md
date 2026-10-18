@@ -1,4 +1,4 @@
-# Sami Water
+# Water Warehouse · مستودع المياه
 
 A mobile-friendly bottled water ordering application with a Node.js API and persistent SQLite orders. Uses Node.js 24 or newer, with no runtime package dependencies.
 
@@ -22,7 +22,7 @@ The server listens on port 3000 (override with `PORT`). SQLite data is stored in
 - SQLite order persistence, UUID order references, and an order receipt.
 - Automated API and database integration tests.
 
-Products and pricing are configured in `server.js`. This initial catalog and the Sami Water branding are provisional. No product sourcing or water-quality claims are made.
+Products and pricing are configured in `server.js`. This initial catalog and the Water Warehouse branding are provisional. No product sourcing or water-quality claims are made.
 
 ## Before accepting real customers
 
@@ -39,3 +39,11 @@ Confirm the actual business name, service area, currency, prices, bottle deposit
 Customer records are not exposed by a public read API. Inspect orders only through trusted local database access until an authenticated administration workflow exists.
 
 Delivery remains provisional: 2.500 TND, waived for product subtotals of at least 25.000 TND. These delivery terms require business confirmation. Existing orders retain the currency and prices recorded at purchase.
+
+## Languages and product photos
+
+The storefront defaults to French and supports Arabic with right-to-left layout. Language preference persists in the browser; switching languages preserves cart and delivery details. Translation strings and product descriptions live in `public/i18n.js`.
+
+Fourat 2 L is 0.800 TND per bottle. Marwa is 0.850 TND per bottle; its capacity has not yet been confirmed. Safia pricing is unchanged.
+
+Original photos displayed in chat were not available as downloadable files during implementation. Put the owner's exact JPEG files at `public/images/safia.jpg`, `public/images/fourat.jpg`, and `public/images/marwa.jpg`. Both Safia options share the same supplied photo. Until files are supplied, the app shows an explicit photo placeholder rather than an imitation. The API exposes images only when the files exist.
